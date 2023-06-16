@@ -1,4 +1,4 @@
-use json_derive::json
+use json_derive::json;
 
 #[derive(json)]
 struct Person {
