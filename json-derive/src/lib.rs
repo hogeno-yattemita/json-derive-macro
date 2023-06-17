@@ -2,7 +2,7 @@ use proc_macro::TokenStream;
 use quote::quote;
 use syn::{parse_macro_input, Data, DeriveInput};
 
-#[proc_macro_derive(json)]
+#[proc_macro_derive(Json)]
 pub fn json_derive(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
     let name = input.ident;
@@ -30,14 +30,14 @@ pub fn json_derive(input: TokenStream) -> TokenStream {
                 impl json_trait::Json for #name {
                     fn to_json(&self) -> String {
                         match &self {
-                            #(Self::#variants => format!("\"{}\"", stringify!(#variants)),)*
+                            #(Self::#variants => format!("\"{}\"", stringify!(#variants)) ),*
                         }
                     }
                 }
             }
         }
-
         _ => todo!(),
     };
+
     out.into()
 }
