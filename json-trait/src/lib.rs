@@ -39,7 +39,10 @@ impl<T: Json> Json for Vec<T> {
 
 impl<T: Json> Json for Option<T> {
     fn to_json(&self) -> String {
-        self.map(|val| val.to_json()).unwrap_or_else(|| "null".to_string())
+        match self {
+            Some(val) => val.to_json(),
+            None => "null".to_string(),
+        }
     }
 }
 
