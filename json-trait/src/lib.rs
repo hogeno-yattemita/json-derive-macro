@@ -48,6 +48,12 @@ impl<T: Json> Json for Option<T> {
 
 impl<K: Json, V: Json> Json for HashMap<K, V> {
     fn to_json(&self) -> String {
-        todo!()
+        let mut inner = self
+            .iter()
+            .map(|(key, val)| format!("{}: {}, ", key.to_json(), val.to_json()))
+            .collect::<String>();
+        inner.pop(); //remove space
+        inner.pop(); //remove comma
+        format!("{{ {} }}", inner)
     }
 }

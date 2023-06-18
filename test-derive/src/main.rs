@@ -1,5 +1,6 @@
 use json_derive::Json;
 use json_trait::Json;
+use std::collections::HashMap;
 
 #[derive(Json)]
 struct Person {
@@ -10,6 +11,7 @@ struct Person {
     hobbies: Option<Vec<String>>,
     food: Food,
     friends: Vec<Person>,
+    scores: Option<HashMap<String, i32>>,
 }
 
 #[derive(Json)]
@@ -57,6 +59,7 @@ fn main() {
                 hobbies: None,
                 food: Food::Ham,
                 friends: vec![],
+                scores: None,
             },
             Person {
                 name: "David Johnson".into(),
@@ -66,6 +69,7 @@ fn main() {
                 hobbies: None,
                 food: Food::Chicken,
                 friends: vec![],
+                scores: None,
             },
             Person {
                 name: "John Doe".into(),
@@ -75,8 +79,19 @@ fn main() {
                 hobbies: Some(vec!["being lazy".into()]),
                 food: Food::Bacon,
                 friends: vec![],
+                scores: None,
             },
         ],
+        scores: Some(
+            [
+                ("Math".into(), 100),
+                ("English".into(), 90),
+                ("Science".into(), 95),
+            ]
+            .iter()
+            .cloned()
+            .collect(),
+        ),
     };
     println!("{}", kofi.to_json())
 }
